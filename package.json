@@ -1,0 +1,71 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Weather web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config ./webpack/webpack.dev.config.js",
+    "build": "webpack -p"
+  },
+  "keywords": [
+    "weather",
+    "web"
+  ],
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "chart.js": "^2.7.1",
+    "file-loader": "^1.1.6",
+    "google-map-react": "^0.29.0",
+    "google-maps-for-react": "^1.1.2",
+    "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
+    "pure-react-carousel": "^1.11.0",
+    "react": "^16.2.0",
+    "react-chartjs-2": "^2.7.0",
+    "react-datepicker": "^1.0.4",
+    "react-dom": "^16.2.0",
+    "react-loading-indicator-overlay": "^1.0.3",
+    "react-notify-toast": "^0.4.0",
+    "react-router-dom": "^4.2.2",
+    "react-scrollbar": "^0.5.4",
+    "react-select-country": "0.0.15",
+    "react-slick": "^0.16.0",
+    "react-sticky-table": "^1.2.0",
+    "react-transition-group": "^2.2.1",
+    "reactstrap": "^5.0.0-beta",
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "css-loader": "^0.28.8",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.viithiisys.com/swarn/clafis.git"
+  }
+}
