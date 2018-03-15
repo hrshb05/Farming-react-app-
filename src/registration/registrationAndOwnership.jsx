@@ -29,18 +29,20 @@ import 'react-datepicker/dist/react-datepicker.css';
 
     registrationAndOwner(event){
         event.preventDefault();
+        
         axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=5ba6c132-8be6-447d-ac10-11d0132a5c53',this.state)
         .then(function (response) {
             if (response.data.message == undefined) {
                 console.log('Message response.data.message',response.data.message);
-                this.props.history.push('/unique-identification-number');              
                 console.log('message is ',resonse.data.message);
               notify.show('success', 'success');
+              const nextPage = this.props.history.push('/unique-identification-number');
             }else{
               notify.show(response.data.message, 'error');
             }
           })
           .catch(function (error, response) {
+            console.log('catch');
             notify.show('Invalid Details  ', 'error');
           });
         
@@ -203,6 +205,7 @@ import 'react-datepicker/dist/react-datepicker.css';
                         </div>
                     </div>
                 </div>
+                <Notifications/>
             </div>
         );
     }
