@@ -1,6 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Link} from 'react-router-dom';
 import Countries  from 'react-select-country';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -35,8 +34,8 @@ import 'react-datepicker/dist/react-datepicker.css';
             if (response.data.message == undefined) {
                 console.log('Message response.data.message',response.data.message);
                 console.log('message is ',resonse.data.message);
-              notify.show('success', 'success');
-              const nextPage = this.props.history.push('/unique-identification-number');
+                notify.show('success', 'success');
+                const nextPage = this.props.history.push('/unique-identification-number');
             }else{
               notify.show(response.data.message, 'error');
             }
@@ -198,7 +197,7 @@ import 'react-datepicker/dist/react-datepicker.css';
                                     <input type="button" value="Exit" className="registration-btn" />
                                     <input type="button" value="Back" className="registration-btn" />
                                     <input  type="button" value="Save" className="registration-btn" />
-                                    <input  type="submit"  value="Save & Continue" className="login-btn margin-top-mobile" />
+                                    <input  type="submit"  value="Save & Continue button" className="login-btn margin-top-mobile" />
                                 </div>
 
                             </form>
