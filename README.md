@@ -10,9 +10,18 @@ Requirements:
 To run the app locally:
 
 ```bash
+for clone project run:
 git clone http://git.viithiisys.com/swarn/clafis.git
+
+Got to project directory:
 cd clafis
+
+Install dependencies:
 npm install 
+
+Run project on your local system:
 npm run dev
-run on your browser: http://localhost:1234
+
+Open project on your browser: 
+http://localhost:1234
 ```
