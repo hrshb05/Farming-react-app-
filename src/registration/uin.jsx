@@ -5,21 +5,36 @@ import {BASE_URL} from '../constant.jsx';
 class UIN extends React.Component{
     constructor(props)
     {
+        let newData = JSON.parse(localStorage.getItem("arrayList"));
         super(props);
         this.state={
             dateOfRegistration:null,
             id:null,
             country:'',
             sex:'',
-            uin:null
+            uin:null,
+            newData: newData
         };
-
         this.componentDidMount = this.componentDidMount.bind(this); 
     }
+    componentDidMount(){
+           this.fetchData();
+          }
+
+          fetchData(){
+
+          }
+
+         componentWillUpdate(nextProps,nextState){
+           // localStorage.getItem('arrayList',JSON.stringify(nextState.arrayList));
+           // localStorage.getItem("result").JSON = localStorage.lastname;
+           //console.log("=====Local-value", newData);
+           
+         }
 
     componentDidMount() {
            console.log('UIN',this.state);
-            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=5ba6c132-8be6-447d-ac10-11d0132a5c53', {
+            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=ad24823a-919e-43ae-86b8-091db0d7b0dc', {
              headers: { ContentType: 'application/json' },
              data: {}
             })
@@ -88,30 +103,38 @@ class UIN extends React.Component{
                                         </div>
                                     </div>
                                 </div>
-
-                                <div>
+                                {this.state.newData.map((location, index) => (
+                                <div key={index}>
                                     <div>
-                                        <p style={{margin: '15px 0'}}>Review Primary Location Information</p>
+                                        {location.primaryLocation ? 
+                                            <p style={{margin: '15px 0'}}>Review Primary Location Information</p>
+                                            :
+                                            <p style={{marginBottom: '10px'}}>Review Secondary Location {index} Information</p>
+                                        }
                                     </div>
                                     <div className='child-form-weather col-sm-11' style={{margin: 0, padding: '15px'}}>
-                                        <p style={{marginBottom: '10px'}}>PL - Primary Location Summary</p>
+                                        {location.primaryLocation ? 
+                                            <p style={{marginBottom: '10px'}}>PL - Primary Location Summary</p>
+                                            :
+                                            <p style={{marginBottom: '10px'}}>SL {index} - Secondary Location {index} Summary</p>
+                                        }
                                         <div>
-                                            <div className="col-md-9 fl">Yedrbjerg</div>
+                                            <div className="col-md-9 fl">{location.addressLine1}</div>
                                             <div className="clearfix"></div>
 
-                                            <div className="col-md-9 fl">DK-3213 Varlose</div>
+                                            <div className="col-md-9 fl">{location.addressLine2} {location.addressLine3}</div>
                                             <div className="clearfix"></div>
 
                                             <div className="col-md-4 fl">Country</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">Denmark</div>
+                                            <div className="col-md-5 fl text-right font-weight-bold">{location.country}</div>
                                             <div className="clearfix"></div>
 
                                             <div className="col-md-4 fl">Longitude</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">56.164</div>
+                                            <div className="col-md-5 fl text-right font-weight-bold">{location.longitude}</div>
                                             <div className="clearfix"></div>
 
                                             <div className="col-md-4 fl">Latitude</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">126.432</div>
+                                            <div className="col-md-5 fl text-right font-weight-bold">{location.latitude}</div>
                                             <div className="col-md-3 fl text-right">
                                                 <input type="button" value="Edit" className="save-location-btn margin-top-mobile" style={{width: 'auto', marginRight: 0}} />
                                             </div>
@@ -119,8 +142,9 @@ class UIN extends React.Component{
                                         </div>
                                     </div>
                                 </div>
+                                ))}
 
-                                <div>
+                                {/*<div>
                                     <div>
                                         <p style={{margin: '15px 0'}}>Review Secondary Location 1 Information</p>
                                     </div>
@@ -180,7 +204,7 @@ class UIN extends React.Component{
                                             <div className="clearfix"></div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>*/}
 
                                 
                                 <div style={{marginTop: '15px'}}>

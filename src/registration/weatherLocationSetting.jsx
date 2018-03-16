@@ -58,6 +58,19 @@ class  WeatherLocationSetting extends React.Component{
         console.log('value entered', this.state.addressLine1);
         this.getLatitudeLongitude();    
     }
+
+
+        componentDidMount(){
+           this.fetchData();
+          }
+
+          fetchData(){
+
+          }
+
+         componentWillUpdate(nextProps,nextState){
+           localStorage.setItem('arrayList',JSON.stringify(nextState.arrayList));
+         }
     //rohit 
 
         anotherLocation(){
@@ -97,7 +110,7 @@ class  WeatherLocationSetting extends React.Component{
                     locationName: '',
                     locationType: '',
                     longitude: '',
-                    primaryLocation: true,
+                    primaryLocation: '',
                     zipcode: '',
     });
 
@@ -155,7 +168,7 @@ class  WeatherLocationSetting extends React.Component{
                 this.setState({
                    showLoader: true
                   })
-                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=11fdaacb-7584-4924-b59e-ca33181f0a34', [this.state])
+                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=ad24823a-919e-43ae-86b8-091db0d7b0dc', [this.state])
                     .then( (response)=> {
                     if(response.status == 200){
                         console.log("response",response)
