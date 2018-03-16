@@ -9,6 +9,7 @@ import Notifications, {notify} from 'react-notify-toast';
 import {BASE_URL} from '../constant.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
 import { withRouter } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
     class RegistrationAndOwnership extends React.Component{
     constructor(props){
@@ -19,18 +20,19 @@ import { withRouter } from "react-router-dom";
             landTenureSystem: '',
             legislation: 'Inherited',
             other: '',
-            parcelAcquiredDate: '2018-01-17T09:45:20.926Z',
+            parcelAcquiredDate: '',
             parcelOwnerUsername: '',
             parcelSizeUnit: '',
             parcelSizeUsed:''
         };
         this.handleInputChange=this.handleInputChange.bind(this);
         this.registrationAndOwner=this.registrationAndOwner.bind(this);
+        this.basicInputChange=this.basicInputChange.bind(this);
     }
 
     registrationAndOwner(event){
         event.preventDefault();        
-        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=cf06939c-820a-4663-8b8f-e1ab99e6c01d',this.state)
+        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=5221be66-a806-449c-a14b-d86334b8e307',this.state)
         .then((response)=> {
             if(response.status==200)
             {
@@ -51,6 +53,13 @@ import { withRouter } from "react-router-dom";
             [name]:value
         });
     }
+    basicInputChange(event) {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({
+          [name]: value,
+        });
+      }
     render(){
         return(
             <div className='container-fluid'>
@@ -185,8 +194,11 @@ import { withRouter } from "react-router-dom";
                                 <div className="clearfix"></div>
 
                                 <p style={{margin: '10px 0'}}>Date Farm / Land wes acquired / owned / leased</p>
-                                <DatePicker className="name-email-phone" value={this.state.parcelAcquiredDate} name="parcelAcquiredDate"selected={this.state.startDate} onChange={this.handleInputChange} dateFormat="DD | MM | YYYY"/>
-
+                                {/*<DatePicker className="name-email-phone" value={this.state.parcelAcquiredDate} name="parcelAcquiredDate"selected={this.state.startDate} onChange={this.handleInputChange} dateFormat="DD | MM | YYYY"/>*/}
+                                <FormGroup>
+                                    
+                                    <Input className="name-email-phone" type="date"  id="exampleDate" onChange={this.basicInputChange} name="parcelAcquiredDate" value={this.state.parcelAcquiredDate} placeholder="date placeholder" />
+                                 </FormGroup>
                                 <div>
                                     <input type="button" value="Preview" className="another-location-btn" />
                                 </div>
