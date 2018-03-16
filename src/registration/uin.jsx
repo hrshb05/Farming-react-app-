@@ -279,7 +279,7 @@ class UIN extends React.Component{
                                     <input type="button" value="Exit" className="registration-btn" />
                                     <input type="button" value="Back" className="registration-btn" />
                                     <input type="button" value="Save" className="registration-btn" />
-                                    <Link to='/forecast'>
+                                    <Link to='/registration-and-ownership'>
                                         <input type="button" value="Save & Continue" className="login-btn margin-top-mobile" />
                                     </Link>
                                 </div>

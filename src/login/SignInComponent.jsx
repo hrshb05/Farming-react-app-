@@ -6,6 +6,8 @@ import axios from 'axios';
 import { Alert } from 'reactstrap';
 import Notifications, {notify} from 'react-notify-toast';
 import OverlayLoader from 'react-loading-indicator-overlay/lib/OverlayLoader'
+import { withRouter } from "react-router-dom";
+
 
 class SignInComponent extends React.Component {
   constructor(props) {
@@ -39,7 +41,8 @@ class SignInComponent extends React.Component {
           axios.post(BASE_URL+'auth-module-2/oauth/token?grant_type=password&username='+this.state.username+'&password='+this.state.password, this.state)
             .then( (response) => {
               if(response.status == 200){
-                console.log("response",response)  
+                console.log("response",response) 
+                this.props.history.push('/basic-information');  
                 this.setState({
                  showLoader: false
                 })  
@@ -51,11 +54,10 @@ class SignInComponent extends React.Component {
               }
             })
             
-            .catch(error => {
-             console.log("Error:" + error.message);
-             this.setState({showLoader: false});
-             notify.show("invalid details",error)
-           })
+            .catch((error)=>{
+                    this.setState({showLoader: false});
+                    notify.show('Invalid Details','error');
+                });
     }else{
       notify.show('All Fields Required', 'error');
     }
@@ -92,5 +94,5 @@ class SignInComponent extends React.Component {
     );
   }
 }
-export default SignInComponent;
+export default withRouter(SignInComponent);
 

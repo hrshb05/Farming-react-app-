@@ -8,6 +8,8 @@ import { Alert } from 'reactstrap';
 import Notifications, {notify} from 'react-notify-toast';
 import {BASE_URL} from '../constant.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
+import { withRouter } from "react-router-dom";
+
     class RegistrationAndOwnership extends React.Component{
     constructor(props){
         super(props);
@@ -27,24 +29,19 @@ import 'react-datepicker/dist/react-datepicker.css';
     }
 
     registrationAndOwner(event){
-        event.preventDefault();
-        
-        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=5ba6c132-8be6-447d-ac10-11d0132a5c53',this.state)
-        .then(function (response) {
-            if (response.data.message == undefined) {
-                console.log('Message response.data.message',response.data.message);
-                console.log('message is ',resonse.data.message);
-                notify.show('success', 'success');
-                const nextPage = this.props.history.push('/unique-identification-number');
-            }else{
-              notify.show(response.data.message, 'error');
+        event.preventDefault();        
+        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=cf06939c-820a-4663-8b8f-e1ab99e6c01d',this.state)
+        .then((response)=> {
+            if(response.status==200)
+            {
+         this.props.history.push('/dashboard');
+
             }
           })
-          .catch(function (error, response) {
-            console.log('catch');
-            notify.show('Invalid Details  ', 'error');
-          });
-        
+        .catch((error)=>{
+            console.log('error',error);
+            notify.show('Invalid Details','error');
+        });
     }
 
     handleInputChange(event){
@@ -214,4 +211,4 @@ import 'react-datepicker/dist/react-datepicker.css';
         });
     };
 }
-export default RegistrationAndOwnership; 
+export default withRouter(RegistrationAndOwnership); 

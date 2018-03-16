@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Notifications, {notify} from 'react-notify-toast';
 import {BASE_URL} from '../constant.jsx'; 
 import OverlayLoader from 'react-loading-indicator-overlay/lib/OverlayLoader'
-
+import { withRouter } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 class BasicAccountRegistartion extends React.Component{
     constructor(props) {
@@ -81,14 +81,15 @@ class BasicAccountRegistartion extends React.Component{
            showLoader: true
           })
               
-              axios.put(BASE_URL+'auth-module-2/users/55?access_token=5ba6c132-8be6-447d-ac10-11d0132a5c53', this.state,{
+              axios.put(BASE_URL+'auth-module-2/users/55?access_token=7e721de5-7047-4180-884b-fbdafd9da65f', this.state,{
                 headers: {
                     'Content-Type': 'application/json',
                 }
             } )
                 .then( (response) =>{
                     if(response.status == 200){
-                console.log("response",response)  
+                console.log("response",response)
+                 this.props.history.push('/primary-location-setting'); 
                 this.setState({
                  showLoader: false
                 })  
@@ -99,14 +100,15 @@ class BasicAccountRegistartion extends React.Component{
                     notify.show(response.data.message, 'error');
                   }
                 })
-                /*.catch(function (error, response) {
-                  notify.show('Invalid Details  ', 'error');
-                });*/
-                .catch(error => {
-             console.log("Error:" + error.message);
-             this.setState({showLoader: false});
-             notify.show("invalid details",error)
-           })
+                .catch((error)=>{
+                    this.setState({showLoader: false});
+                    notify.show('Invalid Details','error');
+                });
+           //      .catch(error => {
+           //   console.log("Error:" + error.message);
+           //   this.setState({showLoader: false});
+           //   notify.show("invalid details",error)
+           // })
         } else{
           notify.show('All Fields Required', 'error');
         }
@@ -212,9 +214,7 @@ class BasicAccountRegistartion extends React.Component{
                                             <input type="button" name="Exit" value='Exit' className="registration-btn"  />
                                             <input type="button" name="Back" value='Back' className="registration-btn"  />
                                             <input type="button" onClick={this.handleBasicInfo} name="Save" value='Save' className="registration-btn"  />
-                                            <Link to='/primary-location-setting'>
-                                            <input type="button" onClick={this.handleBasicInfo} value="Save & Continue"  className="login-btn margin-top-mobile"  />   
-                                            </Link>
+                                            <input type="submit"  value="Save & Continue button"  className="login-btn margin-top-mobile"  />   
                                         </div>
                                         <div className="clearfix"></div>
                                         <Notifications/>
@@ -238,4 +238,4 @@ class BasicAccountRegistartion extends React.Component{
     };
 }
 
-export default BasicAccountRegistartion;
+export default withRouter (BasicAccountRegistartion);

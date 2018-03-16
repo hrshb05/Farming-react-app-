@@ -6,6 +6,10 @@ import axios from 'axios';
 import { Alert } from 'reactstrap';
 import Notifications, {notify} from 'react-notify-toast';
 import {BASE_URL} from '../constant.jsx';
+import { withRouter } from "react-router-dom";
+import OverlayLoader from 'react-loading-indicator-overlay/lib/OverlayLoader'
+
+
 class  WeatherLocationSetting extends React.Component{
     constructor(props){ 
         super(props);
@@ -148,17 +152,25 @@ class  WeatherLocationSetting extends React.Component{
             if (this.state.addressLine1 != '' || this.state.addressLine2 != '' || this.state.addressLine3!=''|| this.state.city!=''  || this.state.country!='' ||  
             this.state.countryCode!='' || this.state.latitude!=''  || this.state.locationName!='' || this.state.locationType!='' || this.state.longitude!='' || this.state.username!=''
             || this.state.zipcode!='' ) {
-                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=5ba6c132-8be6-447d-ac10-11d0132a5c53', [this.state])
-                    .then(function (response) {
-                      if (response.data.message == undefined) {
-                        notify.show('success', 'success');
-                      }else{
+                this.setState({
+                   showLoader: true
+                  })
+                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=11fdaacb-7584-4924-b59e-ca33181f0a34', [this.state])
+                    .then( (response)=> {
+                    if(response.status == 200){
+                        console.log("response",response)
+                         this.props.history.push('/unique-identification-number'); 
+                        this.setState({
+                         showLoader: false
+                        })  
+                     }else{
                         notify.show(response.data.message, 'error');
                       }
                     })
-                    .catch(function (error, response) {
-                      notify.show('Invalid Details  ', 'error');
-                    });
+                    .catch((error)=>{
+                    this.setState({showLoader: false});
+                    notify.show('Invalid Details','error');
+                });
             }else{
               notify.show('All Fields Required', 'error');
             }
@@ -193,7 +205,16 @@ class  WeatherLocationSetting extends React.Component{
        
         return(
             <div className="container-fluid">
-            
+            {this.state.showLoader &&
+             <OverlayLoader
+               color={'red'}
+               loader="ScaleLoader"
+               text="Loading... Please wait!"
+               active={true}
+               backgroundColor={'black'}
+               opacity=".1"  >
+             </OverlayLoader>
+           }
                 <div className="row justify-content-sm-center">
                     <div className="col-xs-12 col-sm-8 sign-up-wrapper">
                         <div>
@@ -584,4 +605,4 @@ class  WeatherLocationSetting extends React.Component{
         );
     }
 }
-export default WeatherLocationSetting;
+export default withRouter(WeatherLocationSetting);
