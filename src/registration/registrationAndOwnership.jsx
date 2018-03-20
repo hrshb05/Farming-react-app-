@@ -32,7 +32,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
     registrationAndOwner(event){
         event.preventDefault();        
-        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=5221be66-a806-449c-a14b-d86334b8e307',this.state)
+        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=d5bbc957-c15c-42fa-b9ce-a91415533099',this.state)
         .then((response)=> {
             if(response.status==200)
             {

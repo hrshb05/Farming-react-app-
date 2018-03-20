@@ -81,7 +81,7 @@ class BasicAccountRegistartion extends React.Component{
            showLoader: true
           })
               
-              axios.put(BASE_URL+'auth-module-2/users/55?access_token=7e721de5-7047-4180-884b-fbdafd9da65f', this.state,{
+              axios.put(BASE_URL+'auth-module-2/users/55?access_token=71186cab-b6d7-45f1-b90f-54ba934e49cf', this.state,{
                 headers: {
                     'Content-Type': 'application/json',
                 }

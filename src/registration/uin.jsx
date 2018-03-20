@@ -26,15 +26,13 @@ class UIN extends React.Component{
           }
 
          componentWillUpdate(nextProps,nextState){
-           // localStorage.getItem('arrayList',JSON.stringify(nextState.arrayList));
-           // localStorage.getItem("result").JSON = localStorage.lastname;
-           //console.log("=====Local-value", newData);
+        
            
          }
 
     componentDidMount() {
            console.log('UIN',this.state);
-            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=ad24823a-919e-43ae-86b8-091db0d7b0dc', {
+            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=9d5e791f-9a1c-4658-a00e-ad00ef210d92', {
              headers: { ContentType: 'application/json' },
              data: {}
             })
