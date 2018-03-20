@@ -75,20 +75,37 @@ class  WeatherLocationSetting extends React.Component{
 
         anotherLocation(){
             if (this.state.longitude != '' || this.state.latitude != '' || this.state.countryCode != '') {
-            var data = {
-            "longitude":this.state.longitude,
-            "latitude":this.state.latitude,
-            "countryCode":this.state.countryCode,
-            "addressLine1":this.state.addressLine1,
-            "addressLine2": this.state.addressLine2,
-            "addressLine3": this.state.addressLine3,
-            "city": this.state.city,
-            "country": this.state.country,
-            "locationName": this.state.locationName,
-            "locationType": this.state.locationType,
-            "primaryLocation": true,
-            "zipcode": this.state.zipcode,
-    }
+            if (this.state.arrayList.length == 0) {
+                    var data = {
+                        "longitude":this.state.longitude,
+                        "latitude":this.state.latitude,
+                        "countryCode":this.state.countryCode,
+                        "addressLine1":this.state.addressLine1,
+                        "addressLine2": this.state.addressLine2,
+                        "addressLine3": this.state.addressLine3,
+                        "city": this.state.city,
+                        "country": this.state.country,
+                        "locationName": this.state.locationName,
+                        "locationType": this.state.locationType,
+                        "primaryLocation": true,
+                        "zipcode": this.state.zipcode,
+                    }
+                }else{
+                    var data = {
+                        "longitude":this.state.longitude,
+                        "latitude":this.state.latitude,
+                        "countryCode":this.state.countryCode,
+                        "addressLine1":this.state.addressLine1,
+                        "addressLine2": this.state.addressLine2,
+                        "addressLine3": this.state.addressLine3,
+                        "city": this.state.city,
+                        "country": this.state.country,
+                        "locationName": this.state.locationName,
+                        "locationType": this.state.locationType,
+                        "primaryLocation": false,
+                        "zipcode": this.state.zipcode,
+                    }
+                }
             this.state.arrayList.push(data);
             this.setState(prevState => ({ values: [...prevState.values, '']}));
             this.anotherLocationes();
@@ -117,7 +134,7 @@ class  WeatherLocationSetting extends React.Component{
     }
             addLocation(){
                 return this.state.arrayList.map((el, i) => 
-                    <div key={i} style={{marginTop: '10px', padding: '15px'}}>
+                    <div key={i} style={{marginTop: '10px', padding: '15px',backgroundColor: 'rgb(239, 234, 234)'}}>
                     <div  type="text" value={el||''} onChange={this.handleChange.bind(this, i)}>
                         <div>
                             <p className="font-weight-bold">
@@ -127,8 +144,8 @@ class  WeatherLocationSetting extends React.Component{
                             i + ' SL - Secondary Location '
                             }
                             </p>
-                            <p style={{margin: '10px 0'}}>Yderbjerg vej 123</p>
-                            <p style={{marginBottom: '10px'}}>DK-3213 Varoise</p>
+                            <p style={{margin: '10px 0'}}>{el.addressLine1}</p>
+                            <p style={{marginBottom: '10px'}}>{el.countryCode}-{el.zipcode} {el.city}</p>
                         </div>
                         <div>
                             <div className="fl no-float-mobile">Country Code</div>
@@ -168,7 +185,7 @@ class  WeatherLocationSetting extends React.Component{
                 this.setState({
                    showLoader: true
                   })
-                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=ad24823a-919e-43ae-86b8-091db0d7b0dc', [this.state])
+                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=9d5e791f-9a1c-4658-a00e-ad00ef210d92', [this.state])
                     .then( (response)=> {
                     if(response.status == 200){
                         console.log("response",response)
@@ -247,8 +264,10 @@ class  WeatherLocationSetting extends React.Component{
                             
                             <form onSubmit={this.handleWeather} className="form" style={{padding: '20px', margin: 0}}>
                                  
-                                 <div className=" child-form-weather" style={{marginTop: '10px', padding: '15px'}}>
+                                 <div  style={{marginTop: '20px',marginRight: '20px', padding: '15px'}}>
+                                    <div>
                                     {this.addLocation()}
+                                    </div>
                                  </div>
 
                                 <div className="col-sm-8 fl code-city" style={{marginTop: '10px', padding: '15px'}}>
@@ -566,13 +585,13 @@ class  WeatherLocationSetting extends React.Component{
                                     <div className="clearfix"></div>
                                     <div className="fl">
                                         <p>
-                                            NA
+                                            {this.state.addressLine1}
                                         </p>
                                     </div>
                                     <div className="clearfix"></div>
                                     <div className="fl">
                                         <p>
-                                            NA 
+                                           {this.state.countryCode}-{this.state.zipcode} {this.state.city}  
                                         </p>
                                     </div>
                                     <div className="clearfix"></div>
@@ -608,7 +627,7 @@ class  WeatherLocationSetting extends React.Component{
                                     <input type="button" value="Back" className="registration-btn" />
                                     </Link>
                                     <input type="button" value="Save" className="registration-btn" />
-                                    <input type="submit" value="Save & Continue" className="login-btn margin-top-mobile" />
+                                    <input type="submit" onSubmit={this.anotherLocation.bind(this)} value="Save & Continue" className="login-btn margin-top-mobile" />
                                 </div>
                                 <Notifications/>
                             </form>
