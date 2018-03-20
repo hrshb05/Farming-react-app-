@@ -9,8 +9,6 @@ import Notifications, {notify} from 'react-notify-toast';
 import {BASE_URL} from '../constant.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
 import { withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
     class RegistrationAndOwnership extends React.Component{
     constructor(props){
         super(props);
@@ -32,18 +30,26 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
     registrationAndOwner(event){
         event.preventDefault();        
-        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=5221be66-a806-449c-a14b-d86334b8e307',this.state)
-        .then((response)=> {
-            if(response.status==200)
-            {
-         this.props.history.push('/dashboard');
-
+        axios.post(BASE_URL+'core-services/admin/farm/basic?username=aa@gmail.com&access_token=6e8e62c8-6e57-416b-b089-7ae03dcae72b',this.state)
+        .then( (response) => {
+            console.log('sample', response);
+            if(response.statusText == "OK"){
+                this.props.history.push('/unique-identification-number');
             }
+            // if (response.data.message == undefined) {
+            // console.log('Message response.data.message',response.data.message);
+            //  this.props.history.push('/unique-identification-number');
+            //   notify.show('success', 'success');
+            //  console.log('Props Message:',this.props) 
+            // }else{
+            //   notify.show(response.data.message, 'error');
+            // }
           })
-        .catch((error)=>{
-            console.log('error',error);
-            notify.show('Invalid Details','error');
-        });
+          .catch((error) => {
+            console.log('catch',error);
+            notify.show('Invalid Details  ', 'error');
+          });
+        
     }
 
     handleInputChange(event){
@@ -204,7 +210,9 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
                                 </div>
                                 <div className="text-right" style={{borderTop: '1px solid #d2d2d2', paddingTop: '15px'}}>
                                     <input type="button" value="Exit" className="registration-btn" />
+                                    <Link to="/unique-identification-number">
                                     <input type="button" value="Back" className="registration-btn" />
+                                    </Link>
                                     <input  type="button" value="Save" className="registration-btn" />
                                     <input  type="submit"  value="Save & Continue button" className="login-btn margin-top-mobile" />
                                 </div>
@@ -223,4 +231,4 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
         });
     };
 }
-export default withRouter(RegistrationAndOwnership); 
+export default withRouter( RegistrationAndOwnership); 

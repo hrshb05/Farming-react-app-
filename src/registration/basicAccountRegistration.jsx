@@ -37,14 +37,12 @@ class BasicAccountRegistartion extends React.Component{
           dateOfRegistration: "",
           showLoader:''
         };
-
         this.onSelectCountry=this.onSelectCountry.bind(this);
         this.handleBasicInfo=this.handleBasicInfo.bind(this);
         this.handleOnInputChange=this.handleOnInputChange.bind(this);
         this.basicInputChange=this.basicInputChange.bind(this);
-
-        
     }
+    
     handleOnInputChange(event) {
         const data = event.target;
         const value = data.value;
@@ -71,6 +69,9 @@ class BasicAccountRegistartion extends React.Component{
     }
 
     handleBasicInfo(event) {
+        let data_var=JSON.parse(localStorage.getItem('arrayList'));
+        
+        console.log("data_var----->",data_var)
         event.preventDefault();
         console.log('form submited', this.state);
         if (this.state.username != '' || this.state.password != '' || this.state.addressLine1!=''|| this.state.addressLine2!=''  || this.state.city!='' ||  
@@ -81,7 +82,7 @@ class BasicAccountRegistartion extends React.Component{
            showLoader: true
           })
               
-              axios.put(BASE_URL+'auth-module-2/users/55?access_token=7e721de5-7047-4180-884b-fbdafd9da65f', this.state,{
+              axios.put(BASE_URL+'auth-module-2/users/55?access_token='+data_var.access_token, this.state,{
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -212,7 +213,9 @@ class BasicAccountRegistartion extends React.Component{
                                         <div className="clearfix"></div>
                                         <div className="text-right" style={{borderTop: '1px solid #d2d2d2', paddingTop: '15px'}}>
                                             <input type="button" name="Exit" value='Exit' className="registration-btn"  />
+                                            <Link   to="/">
                                             <input type="button" name="Back" value='Back' className="registration-btn"  />
+                                            </Link>
                                             <input type="button" onClick={this.handleBasicInfo} name="Save" value='Save' className="registration-btn"  />
                                             <input type="submit"  value="Save & Continue button"  className="login-btn margin-top-mobile"  />   
                                         </div>

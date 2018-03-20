@@ -1,13 +1,15 @@
 import React from 'react';
 import {render} from 'react-dom';
-import { Link } from 'react-router-dom';
-import {BASE_URL} from '../constant.jsx';
+import {Link,withRouter} from 'react-router-dom';
+import Countries  from 'react-select-country';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import axios from 'axios';
 import { Alert } from 'reactstrap';
 import Notifications, {notify} from 'react-notify-toast';
-import OverlayLoader from 'react-loading-indicator-overlay/lib/OverlayLoader'
-import { withRouter } from "react-router-dom";
-
+import {BASE_URL} from '../constant.jsx';
+import 'react-datepicker/dist/react-datepicker.css';
+import OverlayLoader from 'react-loading-indicator-overlay/lib/OverlayLoader';
 
 class SignInComponent extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class SignInComponent extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
   }
-  
+
   handleInputChange(event) {
     const data = event.target;
     const value = data.value;
@@ -31,37 +33,23 @@ class SignInComponent extends React.Component {
     });
   }
   
-  handleSignIn(event) {
+   handleSignIn(event) {
     event.preventDefault();
-    console.log('form submited', this.state);
+     console.log('form submited', this.state);
     if (this.state.username != '' || this.state.password != '') {
-        this.setState({
-           showLoader: true
-          })
-          axios.post(BASE_URL+'auth-module-2/oauth/token?grant_type=password&username='+this.state.username+'&password='+this.state.password, this.state)
+            axios.post(BASE_URL+'auth-module-2/oauth/token?grant_type=password&username='+this.state.username+'&password='+this.state.password, this.state)
             .then( (response) => {
-              if(response.status == 200){
-                console.log("response",response) 
-                this.props.history.push('/basic-information');  
-                this.setState({
-                 showLoader: false
-                })  
-              }
-              if (response.data.message == undefined) {
-                notify.show('User SignedIn', 'success');
-              }else{
-                notify.show(response.data.message, 'error');
-              }
-            })
-            
-            .catch((error)=>{
-                    this.setState({showLoader: false});
-                    notify.show('Invalid Details','error');
-                });
-    }else{
-      notify.show('All Fields Required', 'error');
+            localStorage.setItem('arrayList',JSON.stringify(response.data));     
+            console.log('sample', response);
+            if(response.statusText == "OK"){
+            this.props.history.push('/basic-information');
+             }
+           })
+           .catch((error) => {
+            console.log('catch',error);
+            notify.show('Invalid Details  ', 'error');
+           });
     }
-    
   }
   
   render() {

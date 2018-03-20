@@ -604,7 +604,9 @@ class  WeatherLocationSetting extends React.Component{
                                 </div>
                                 <div className="text-right" style={{borderTop: '1px solid #d2d2d2', paddingTop: '15px'}}>
                                     <input type="button" value="Exit" className="registration-btn" />
+                                    <Link to="/basic-information">
                                     <input type="button" value="Back" className="registration-btn" />
+                                    </Link>
                                     <input type="button" value="Save" className="registration-btn" />
                                     <input type="submit" value="Save & Continue" className="login-btn margin-top-mobile" />
                                 </div>
