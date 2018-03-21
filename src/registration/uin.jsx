@@ -13,7 +13,8 @@ class UIN extends React.Component{
             country:'',
             sex:'',
             uin:null,
-            newData: newData
+            newData: newData,
+         
         };
         this.componentDidMount = this.componentDidMount.bind(this); 
     }
@@ -26,17 +27,23 @@ class UIN extends React.Component{
           }
 
          componentWillUpdate(nextProps,nextState){
-        
+           // localStorage.getItem('arrayList',JSON.stringify(nextState.arrayList));
+           // localStorage.getItem("result").JSON = localStorage.lastname;
+           //console.log("=====Local-value", newData);
            
          }
 
     componentDidMount() {
+        let data_var=JSON.parse(localStorage.getItem('arrayList'));
+        
            console.log('UIN',this.state);
-            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=9d5e791f-9a1c-4658-a00e-ad00ef210d92', {
+            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token='+data_var.access_token, {
              headers: { ContentType: 'application/json' },
              data: {}
             })
               .then(response => {
+            localStorage.setItem('arrayList',JSON.stringify(response.data));     
+                  
                 this.setState({
                   classrooms:response.data.classrooms,
                   profile:response.data.profile,
@@ -101,20 +108,21 @@ class UIN extends React.Component{
                                         </div>
                                     </div>
                                 </div>
-                                {this.state.newData.map((location, index) => (
-                                <div key={index}>
-                                    <div>
-                                        {location.primaryLocation ? 
+                                {this.state.newData.map((location, i) => (
+                                <div key={i}>
+                              
+                             <div>
+                                        {location.primaryLocation ?
                                             <p style={{margin: '15px 0'}}>Review Primary Location Information</p>
                                             :
-                                            <p style={{marginBottom: '10px'}}>Review Secondary Location {index} Information</p>
+                                            <p style={{marginBottom: '10px'}}>Review Secondary Location Information</p>
                                         }
                                     </div>
                                     <div className='child-form-weather col-sm-11' style={{margin: 0, padding: '15px'}}>
-                                        {location.primaryLocation ? 
+                                        {location.primaryLocation ?
                                             <p style={{marginBottom: '10px'}}>PL - Primary Location Summary</p>
                                             :
-                                            <p style={{marginBottom: '10px'}}>SL {index} - Secondary Location {index} Summary</p>
+                                            <p style={{marginBottom: '10px'}}>SL{i} - Secondary Location {i} Summary</p>
                                         }
                                         <div>
                                             <div className="col-md-9 fl">{location.addressLine1}</div>
@@ -142,69 +150,9 @@ class UIN extends React.Component{
                                 </div>
                                 ))}
 
-                                {/*<div>
-                                    <div>
-                                        <p style={{margin: '15px 0'}}>Review Secondary Location 1 Information</p>
-                                    </div>
-                                    <div className='child-form-weather col-sm-11' style={{margin: 0, padding: '15px'}}>
-                                        <p style={{marginBottom: '10px'}}>SL 1 - Secondary Location 1 Summary</p>
-                                        <div>
-                                            <div className="col-md-9 fl">Yedrbjerg</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-9 fl">DK-3213 Varlose</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-4 fl">Country</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">Denmark</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-4 fl">Longitude</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">56.164</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-4 fl">Latitude</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">126.432</div>
-                                            <div className="col-md-3 fl text-right">
-                                                <input type="button" value="Edit" className="save-location-btn margin-top-mobile" style={{width: 'auto', marginRight: 0}} />
-                                            </div>
-                                            <div className="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div>
-                                        <p style={{margin: '15px 0'}}>Review Secondary Location 2 Information</p>
-                                    </div>
-                                    <div className='child-form-weather col-sm-11' style={{margin: 0, padding: '15px'}}>
-                                        <p style={{marginBottom: '10px'}}>SL 2 - Secondary Location 2 Summary</p>
-                                        <div>
-                                            <div className="col-md-9 fl">Yedrbjerg</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-9 fl">DK-3213 Varlose</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-4 fl">Country</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">Denmark</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-4 fl">Longitude</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">56.164</div>
-                                            <div className="clearfix"></div>
-
-                                            <div className="col-md-4 fl">Latitude</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">126.432</div>
-                                            <div className="col-md-3 fl text-right">
-                                                <input type="button" value="Edit" className="save-location-btn margin-top-mobile" style={{width: 'auto', marginRight: 0}} />
-                                            </div>
-                                            <div className="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>*/}
-
                                 
+
+                    
                                 <div style={{marginTop: '15px'}}>
                                     <div className="child-form-weather col-sm-11" style={{margin: 0, padding: '15px'}}>
                                     <div>
