@@ -58,20 +58,7 @@ class  WeatherLocationSetting extends React.Component{
         console.log('value entered', this.state.addressLine1);
         this.getLatitudeLongitude();    
     }
-
-
-        componentDidMount(){
-           this.fetchData();
-          }
-
-          fetchData(){
-
-          }
-
-         componentWillUpdate(nextProps,nextState){
-           localStorage.setItem('arrayList',JSON.stringify(nextState.arrayList));
-         }
-    //rohit 
+ 
 
         anotherLocation(){
             if (this.state.longitude != '' || this.state.latitude != '' || this.state.countryCode != '') {
@@ -174,7 +161,6 @@ class  WeatherLocationSetting extends React.Component{
                 this.setState({ values });
      }
 
-     //rohit
  
             handleWeather(event) {
             event.preventDefault();
@@ -185,8 +171,10 @@ class  WeatherLocationSetting extends React.Component{
                 this.setState({
                    showLoader: true
                   })
-                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=9d5e791f-9a1c-4658-a00e-ad00ef210d92', [this.state])
+                let data_v=JSON.parse(localStorage.getItem('arrayList1'));                  
+                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token='+data_v.access_token, [this.state])
                     .then( (response)=> {
+                let data_var=JSON.parse(localStorage.getItem('arrayList'));                        
                     if(response.status == 200){
                         console.log("response",response)
                          this.props.history.push('/unique-identification-number'); 

@@ -31,7 +31,7 @@ class BasicAccountRegistartion extends React.Component{
             mobile: null,
             sex: "",
             userAuthorities: "USER",
-            userName: "",
+            userName: "rohit1.viithiisys@gmail.com",
             zipcode: null,
             startDate: moment(),
           dateOfRegistration: "",
@@ -49,7 +49,6 @@ class BasicAccountRegistartion extends React.Component{
         const name = data.name;
         this.setState({
           [name]: value,
-          
         });
       }
        basicInputChange(event) {
@@ -69,8 +68,7 @@ class BasicAccountRegistartion extends React.Component{
     }
 
     handleBasicInfo(event) {
-        let data_var=JSON.parse(localStorage.getItem('arrayList'));
-        
+        let data_var=JSON.parse(localStorage.getItem('arrayList1'));
         console.log("data_var----->",data_var)
         event.preventDefault();
         console.log('form submited', this.state);
@@ -88,6 +86,8 @@ class BasicAccountRegistartion extends React.Component{
                 }
             } )
                 .then( (response) =>{
+            localStorage.setItem('arrayList',JSON.stringify(response.data));     
+                    
                     if(response.status == 200){
                 console.log("response",response)
                  this.props.history.push('/primary-location-setting'); 
@@ -105,11 +105,6 @@ class BasicAccountRegistartion extends React.Component{
                     this.setState({showLoader: false});
                     notify.show('Invalid Details','error');
                 });
-           //      .catch(error => {
-           //   console.log("Error:" + error.message);
-           //   this.setState({showLoader: false});
-           //   notify.show("invalid details",error)
-           // })
         } else{
           notify.show('All Fields Required', 'error');
         }
