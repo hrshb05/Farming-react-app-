@@ -9,12 +9,15 @@ import Notifications, {notify} from 'react-notify-toast';
 import {BASE_URL} from '../constant.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
 import { withRouter } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
     class RegistrationAndOwnership extends React.Component{
     constructor(props){
         super(props);
         this.state = {
           startDate: moment(),
-            farmId: 32,
+            farmId: 46,
             landTenureSystem: '',
             legislation: 'Inherited',
             other: '',
@@ -29,12 +32,13 @@ import { withRouter } from "react-router-dom";
     }
 
     registrationAndOwner(event){
-        event.preventDefault();        
-        axios.post(BASE_URL+'core-services/admin/farm/basic?username=aa@gmail.com&access_token=6e8e62c8-6e57-416b-b089-7ae03dcae72b',this.state)
+        event.preventDefault(); 
+        if (this.state.other != '' && this.state.parcelSizeUnit != ''&& this.state.parcelSizeUsed!='' ) {      
+        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=d9de4312-b6b0-4bea-9aa8-ddd149dba10a',this.state)
         .then( (response) => {
             console.log('sample', response);
             if(response.statusText == "OK"){
-                this.props.history.push('/unique-identification-number');
+                this.props.history.push('/dashboard');
             }
             // if (response.data.message == undefined) {
             // console.log('Message response.data.message',response.data.message);
@@ -49,6 +53,9 @@ import { withRouter } from "react-router-dom";
             console.log('catch',error);
             notify.show('Invalid Details  ', 'error');
           });
+        } else{
+            notify.show('All Fields Required', 'error');
+          }
         
     }
 

@@ -187,7 +187,7 @@ class  WeatherLocationSetting extends React.Component{
                 this.setState({
                    showLoader: true
                   })
-                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=d9141b32-a7bb-4fdc-a043-e2a7efc280fc', [this.state])
+                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=d9de4312-b6b0-4bea-9aa8-ddd149dba10a', [this.state])
                     .then( (response)=> {
                         // localStorage.setItem('signin-access-token',JSON.stringify(response.data));
                     if(response.status == 200){
@@ -586,13 +586,13 @@ class  WeatherLocationSetting extends React.Component{
                                     <div className="clearfix"></div>
                                     <div className="fl">
                                         <p>
-                                            NA
+                                        {this.state.addressLine1}
                                         </p>
                                     </div>
                                     <div className="clearfix"></div>
                                     <div className="fl">
                                         <p>
-                                            NA 
+                                        {this.state.countryCode}-{this.state.zipcode} {this.state.city}
                                         </p>
                                     </div>
                                     <div className="clearfix"></div>
