@@ -13,7 +13,7 @@ class DashboardMainTabsComponent extends React.Component {
     this.toggle = this.toggle.bind(this);
 
     this.state = {
-      activeTab: '2'
+      activeTab: '1'
     };
 
   }
@@ -44,8 +44,8 @@ class DashboardMainTabsComponent extends React.Component {
               </NavItem>
             </Nav>
             <div className="fr right-dashboard-links">
-              <a href="#">Setup</a>
-              <a href="#">Edit configuration</a>
+              <a href="/basic-information">Setup</a>
+              <a href="/basic-information">Edit configuration</a>
             </div>
           </div>
         </div>
