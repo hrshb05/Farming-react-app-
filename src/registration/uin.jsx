@@ -36,7 +36,7 @@ class UIN extends React.Component{
     componentDidMount() {
         // let data_var=JSON.parse(localStorage.getItem('weather-access-token'));
            console.log('UIN',this.state);
-            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=d443a7c0-25f5-40a7-8909-1b7a8bd599fd', {
+            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=d9141b32-a7bb-4fdc-a043-e2a7efc280fc', {
              headers: { ContentType: 'application/json' },
              data: {}
             })

@@ -35,7 +35,6 @@ class BasicAccountRegistartion extends React.Component{
             zipcode: null,
             startDate: moment(),
           dateOfRegistration: "",
-          showLoader:''
         };
         this.onSelectCountry=this.onSelectCountry.bind(this);
         this.handleBasicInfo=this.handleBasicInfo.bind(this);
@@ -71,10 +70,10 @@ class BasicAccountRegistartion extends React.Component{
         let data_var=JSON.parse(localStorage.getItem('signin-access-token'));
         event.preventDefault();
         console.log('form submited', this.state);
-        if (this.state.username != '' || this.state.password != '' || this.state.addressLine1!=''|| this.state.addressLine2!=''  || this.state.city!='' ||  
-        this.state.country!='' || this.state.countryCode!=''  || this.state.creationDate!='' || this.state.dateOfRegistration!='' || this.state.email!='' || this.state.firstName!=''
-        || this.state.groupRole!='' || this.state.lastAccessDate!='' || this.state.lastName!='' || this.state.mobile!='' || this.state.sex!='' || this.state.userAuthorities!=''
-        || this.state.zipcode!='' ) {
+        if (this.state.username != '' && this.state.password != ''&&  this.state.addressLine1!=''&& this.state.addressLine2!=''  && this.state.city!='' &&  
+        this.state.country!='' && this.state.countryCode==''  && this.state.creationDate=='' && this.state.dateOfRegistration!='' && this.state.email!='' && this.state.firstName!=''
+        && this.state.groupRole!='' && this.state.lastAccessDate=='' && this.state.lastName!='' && this.state.mobile!='' && this.state.sex!='' && this.state.userAuthorities!=''
+        && this.state.zipcode!='' ) {
             this.setState({
            showLoader: true
           })
@@ -87,7 +86,7 @@ class BasicAccountRegistartion extends React.Component{
                 .then( (response) =>{
             localStorage.setItem('signin-access-token',JSON.stringify(response.data));     
                     
-                    if(response.message != "Please provide required fields" && response.statusText=="OK"){
+                    if(response.status == 200){
                 console.log("response",response)
                  this.props.history.push('/primary-location-setting'); 
                 this.setState({

@@ -181,13 +181,13 @@ class  WeatherLocationSetting extends React.Component{
                 // let data_var=JSON.parse(localStorage.getItem('signin-access-token'));
             event.preventDefault();
             console.log('handleWeather', this.state);
-            if (this.state.addressLine1 != '' || this.state.addressLine2 != '' || this.state.addressLine3!=''|| this.state.city!=''  || this.state.country!='' ||  
-            this.state.countryCode!='' || this.state.latitude!=''  || this.state.locationName!='' || this.state.locationType!='' || this.state.longitude!='' || this.state.username!=''
-            || this.state.zipcode!='' ) {
+            if (this.state.addressLine1 != '' && this.state.addressLine2 != '' && this.state.addressLine3!=''&& this.state.city!=''  && this.state.country!='' &&  
+            this.state.countryCode!='' && this.state.latitude!=''  && this.state.locationName!='' && this.state.locationType!=''&& this.state.longitude!='' && this.state.username!=''
+            && this.state.zipcode!='' ) {
                 this.setState({
                    showLoader: true
                   })
-                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=d443a7c0-25f5-40a7-8909-1b7a8bd599fd', [this.state])
+                  axios.post(BASE_URL+'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=d9141b32-a7bb-4fdc-a043-e2a7efc280fc', [this.state])
                     .then( (response)=> {
                         // localStorage.setItem('signin-access-token',JSON.stringify(response.data));
                     if(response.status == 200){
