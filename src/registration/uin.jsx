@@ -34,16 +34,13 @@ class UIN extends React.Component{
          }
 
     componentDidMount() {
-        let data_var=JSON.parse(localStorage.getItem('arrayList'));
-        
+        // let data_var=JSON.parse(localStorage.getItem('weather-access-token'));
            console.log('UIN',this.state);
-            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token='+data_var.access_token, {
+            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=d443a7c0-25f5-40a7-8909-1b7a8bd599fd', {
              headers: { ContentType: 'application/json' },
              data: {}
             })
               .then(response => {
-            localStorage.setItem('arrayList',JSON.stringify(response.data));     
-                  
                 this.setState({
                   classrooms:response.data.classrooms,
                   profile:response.data.profile,

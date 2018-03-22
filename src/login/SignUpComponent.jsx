@@ -15,7 +15,6 @@ class SignUpComponent extends React.Component {
       userPassword: '',
       groupRole: 'USER',
       userAuthorities: 'USER',
-      confirmPassword: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);

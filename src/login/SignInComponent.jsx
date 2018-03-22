@@ -39,14 +39,12 @@ class SignInComponent extends React.Component {
     if (this.state.username != '' || this.state.password != '') {
             axios.post(BASE_URL+'auth-module-2/oauth/token?grant_type=password&username='+this.state.username+'&password='+this.state.password, this.state)
             .then( (response) => {
-            localStorage.setItem('arrayList',JSON.stringify(response.data));     
-            console.log('sample', response);
+            localStorage.setItem('signin-access-token',JSON.stringify(response.data));     
             if(response.statusText == "OK"){
             this.props.history.push('/basic-information');
              }
            })
            .catch((error) => {
-            console.log('catch',error);
             notify.show('Invalid Details  ', 'error');
            });
     }
