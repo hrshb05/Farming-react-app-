@@ -2,9 +2,11 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router-dom';
 import {BASE_URL} from '../constant.jsx';
+
 class UIN extends React.Component{
     constructor(props)
     {
+        
         let newData = JSON.parse(localStorage.getItem("arrayList"));
         super(props);
         this.state={
@@ -23,43 +25,56 @@ class UIN extends React.Component{
           }
 
           fetchData(){
-
+            let basicAccountData = JSON.parse(localStorage.getItem("basic"));
+            
           }
 
          componentWillUpdate(nextProps,nextState){
-           // localStorage.getItem('arrayList',JSON.stringify(nextState.arrayList));
-           // localStorage.getItem("result").JSON = localStorage.lastname;
-           //console.log("=====Local-value", newData);
-           
          }
 
-    componentDidMount() {
-        // let data_var=JSON.parse(localStorage.getItem('weather-access-token'));
-           console.log('UIN',this.state);
-            axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token=d9de4312-b6b0-4bea-9aa8-ddd149dba10a', {
-             headers: { ContentType: 'application/json' },
-             data: {}
+         componentDidMount() {
+            let authData = JSON.parse(localStorage.getItem('auth'));
+            event.preventDefault();
+            console.log('auth data', authData);
+    
+            axios.post(BASE_URL + 'auth-module-2/oauth/token?grant_type=refresh_token&refresh_token='+authData.refresh_token)
+            .then((refreshAuth) => {
+                if(refreshAuth.status === 200){
+                localStorage.setItem('auth', JSON.stringify(refreshAuth.data));                    
+                    // hit API
+                    axios.get(BASE_URL+'auth-module-2/business/generate/UIN/55?access_token='  + refreshAuth.data.access_token, {
+                        headers: { ContentType: 'application/json' },
+                        data: {}
+                       })
+                         .then(response => {
+                           this.setState({
+                             classrooms:response.data.classrooms,
+                             profile:response.data.profile,
+                             dateOfRegistration:response.data.dateOfRegistration,
+                             id:response.data.id,
+                             country:response.data.country,
+                             sex:response.data.sex,
+                             uin:response.data.uin
+           
+           
+                           })
+                         })
+                         .then(response => {
+                           this.setState({classrooms: response.data.profile})
+                         })
+                         .catch((error) => {
+                           console.log("error",error)
+                         })
+                    //hit api end
+                }else{
+                    notify.show('Session expire, Please login again.', 'error');
+                    localStorage.clear();
+                    this.props.history.push('/');
+                }
             })
-              .then(response => {
-                this.setState({
-                  classrooms:response.data.classrooms,
-                  profile:response.data.profile,
-                  dateOfRegistration:response.data.dateOfRegistration,
-                  id:response.data.id,
-                  country:response.data.country,
-                  sex:response.data.sex,
-                  uin:response.data.uin
+        }
 
-
-                })
-              })
-              .then(response => {
-                this.setState({classrooms: response.data.profile})
-              })
-              .catch((error) => {
-                console.log("error",error)
-              })
-      }
+    
     
     render(){
         return(
@@ -81,7 +96,7 @@ class UIN extends React.Component{
                                         <p style={{marginBottom: '10px'}}>User Summary</p>
                                         <div>
                                             <div className="col-md-4 fl">Last Name</div>
-                                            <div className="col-md-5 fl text-right font-weight-bold">Hansen</div>
+                                            <div className="col-md-5 fl text-right font-weight-bold">${this.state.firstName}</div>
                                             <div className="clearfix"></div>
 
                                             <div className="col-md-4 fl">First Name</div>

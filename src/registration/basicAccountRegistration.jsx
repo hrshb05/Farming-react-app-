@@ -65,7 +65,7 @@ class BasicAccountRegistartion extends React.Component {
         }
         this.state.selectedCountry = this.refs.country.selected;
     }
-
+    
     handleBasicInfo(event) {
         let authData = JSON.parse(localStorage.getItem('auth'));
         event.preventDefault();
@@ -86,8 +86,10 @@ class BasicAccountRegistartion extends React.Component {
                             'Content-Type': 'application/json',
                         }
                     })
-                    .then((response) => {         
+                    .then((response) => { 
+
                         if (response.status == 200) {
+                            localStorage.setItem('basic', JSON.stringify(response.data));
                             this.props.history.push('/primary-location-setting');
                             this.setState({
                                 showLoader: false

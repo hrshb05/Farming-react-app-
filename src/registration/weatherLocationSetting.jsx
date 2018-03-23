@@ -178,48 +178,47 @@ class WeatherLocationSetting extends React.Component {
 
     handleWeather(event) {
         let authData = JSON.parse(localStorage.getItem('auth'));
+        let userData = JSON.parse(localStorage.getItem('userData'));        
         event.preventDefault();
         console.log('auth data', authData);
 
         axios.post(BASE_URL + 'auth-module-2/oauth/token?grant_type=refresh_token&refresh_token='+authData.refresh_token)
         .then((refreshAuth) => {
             if(refreshAuth.status === 200){
+                localStorage.setItem('auth', JSON.stringify(refreshAuth.data));                
                 // hit API
+                if (this.state.addressLine1 != '' && this.state.addressLine2 != '' && this.state.addressLine3 != '' && this.state.city != '' && this.state.country != '' &&
+            this.state.countryCode != '' && this.state.latitude != '' && this.state.locationName != '' && this.state.locationType != '' && this.state.longitude != '' && this.state.username != ''
+            && this.state.zipcode != '') {
+            this.setState({
+                showLoader: true
+            })
+            axios.post(BASE_URL + 'core-services/admin/farm?username='+userData+'&access_token=' + refreshAuth.data.access_token, [this.state])
+                .then((response) => {
+                    if (response.status == 200) {
+                        console.log("response", response)
+                        this.props.history.push('/unique-identification-number');
+                        this.setState({
+                            showLoader: false
+                        })
+                    } else {
+                        notify.show(response.data.message, 'error');
+                    }
+                })
+                .catch((error) => {
+                    this.setState({ showLoader: false });
+                    notify.show('Invalid Details', 'error');
+                });
+        } else {
+            notify.show('All Fields Required', 'error');
+        }
+                //hit api end
             }else{
                 notify.show('Session expire, Please login again.', 'error');
                 localStorage.clear();
                 this.props.history.push('/');
             }
         })
-
-
-        //console.log('handleWeather', this.state);
-        // if (this.state.addressLine1 != '' && this.state.addressLine2 != '' && this.state.addressLine3 != '' && this.state.city != '' && this.state.country != '' &&
-        //     this.state.countryCode != '' && this.state.latitude != '' && this.state.locationName != '' && this.state.locationType != '' && this.state.longitude != '' && this.state.username != ''
-        //     && this.state.zipcode != '') {
-        //     this.setState({
-        //         showLoader: true
-        //     })
-        //     axios.post(BASE_URL + 'core-services/admin/farm?username=rohit1.viithiisys@gmail.com&access_token=d9de4312-b6b0-4bea-9aa8-ddd149dba10a', [this.state])
-        //         .then((response) => {
-        //             // localStorage.setItem('signin-access-token',JSON.stringify(response.data));
-        //             if (response.status == 200) {
-        //                 console.log("response", response)
-        //                 this.props.history.push('/unique-identification-number');
-        //                 this.setState({
-        //                     showLoader: false
-        //                 })
-        //             } else {
-        //                 notify.show(response.data.message, 'error');
-        //             }
-        //         })
-        //         .catch((error) => {
-        //             this.setState({ showLoader: false });
-        //             notify.show('Invalid Details', 'error');
-        //         });
-        // } else {
-        //     notify.show('All Fields Required', 'error');
-        // }
     }
 
 

@@ -31,32 +31,39 @@ import { Link } from 'react-router-dom';
         this.basicInputChange=this.basicInputChange.bind(this);
     }
 
-    registrationAndOwner(event){
-        event.preventDefault(); 
-        if (this.state.other != '' && this.state.parcelSizeUnit != ''&& this.state.parcelSizeUsed!='' ) {      
-        axios.post(BASE_URL+'core-services/admin/farm/basic?username=rohit1.viithiisys@gmail.com&access_token=d9de4312-b6b0-4bea-9aa8-ddd149dba10a',this.state)
-        .then( (response) => {
-            console.log('sample', response);
-            if(response.statusText == "OK"){
-                this.props.history.push('/dashboard');
+    registrationAndOwner(event) {
+        let authData = JSON.parse(localStorage.getItem('auth'));
+        let userData = JSON.parse(localStorage.getItem('userData'));        
+        event.preventDefault();
+        console.log('auth data', authData);
+
+        axios.post(BASE_URL + 'auth-module-2/oauth/token?grant_type=refresh_token&refresh_token='+authData.refresh_token)
+        .then((refreshAuth) => {
+            if(refreshAuth.status === 200){
+                localStorage.setItem('auth', JSON.stringify(refreshAuth.data));               
+                // hit API
+                if (this.state.other != '' && this.state.parcelSizeUnit != ''&& this.state.parcelSizeUsed!='' ) {      
+                    axios.post(BASE_URL+'core-services/admin/farm/basic?username='+userData+'&access_token=' + refreshAuth.data.access_token ,this.state)
+                    .then( (response) => {
+                        console.log('sample', response);
+                        if(response.statusText == "OK"){
+                            this.props.history.push('/dashboard');
+                        }
+                      })
+                      .catch((error) => {
+                        console.log('catch',error);
+                        notify.show('Invalid Details  ', 'error');
+                      });
+                    } else{
+                        notify.show('All Fields Required', 'error');
+                      }
+                //hit api end
+            }else{
+                notify.show('Session expire, Please login again.', 'error');
+                localStorage.clear();
+                this.props.history.push('/');
             }
-            // if (response.data.message == undefined) {
-            // console.log('Message response.data.message',response.data.message);
-            //  this.props.history.push('/unique-identification-number');
-            //   notify.show('success', 'success');
-            //  console.log('Props Message:',this.props) 
-            // }else{
-            //   notify.show(response.data.message, 'error');
-            // }
-          })
-          .catch((error) => {
-            console.log('catch',error);
-            notify.show('Invalid Details  ', 'error');
-          });
-        } else{
-            notify.show('All Fields Required', 'error');
-          }
-        
+        })
     }
 
     handleInputChange(event){
