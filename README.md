@@ -25,3 +25,5 @@ npm run dev
 Open project on your browser: 
 http://localhost:1234
 ```
+ ![alt tag](Desktop/SignUp.jpg)
+ 
