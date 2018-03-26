@@ -762,7 +762,7 @@ button, input[type="button"]{
 	}
 	.child-form-weather{
 		margin-right: 0;
-		padding-right: 20px;
+		padding: 20px;
 	}
 	.save-location-btn{
 		margin-right: 0;

@@ -39,7 +39,7 @@ class WeatherLocationSetting extends React.Component {
 
     }
     onSelectCountry(event) {
-
+        
         this.state.selectedCountry = {
             id: event.target.value,
             name: event.target.options[event.target.selectedIndex].text
@@ -134,7 +134,7 @@ class WeatherLocationSetting extends React.Component {
     }
     addLocation() {
         return this.state.arrayList.map((el, i) =>
-            <div key={i} style={{ marginTop: '10px', padding: '15px' }}>
+            <div className=" child-form-weather" key={i} style={{ marginTop: '10px', padding: '15px' }}>
                 <div type="text" value={el || ''} onChange={this.handleChange.bind(this, i)}>
                     <div>
                         <p className="font-weight-bold">
@@ -279,7 +279,7 @@ class WeatherLocationSetting extends React.Component {
 
                             <form onSubmit={this.handleWeather} className="form" style={{ padding: '20px', margin: 0 }}>
 
-                                <div className=" child-form-weather" style={{ marginTop: '10px', padding: '15px' }}>
+                                <div  style={{ marginRight: '20px',marginTop: '10px', padding: '15px' }}>
                                     {this.addLocation()}
                                 </div>
 
@@ -294,11 +294,11 @@ class WeatherLocationSetting extends React.Component {
                                         <option value="Farm,work and Home" name='Farm,work and Home'>Farm,work and home</option>
                                     </select>
                                 </div>
-                                <div >
+                                <div style={{ padding: '15px' }}>
                                     <label className="input-title" >Name of Farm / Work /Home /Other<span className="astrick">*</span></label>
                                     <input className="name-email-phone" value={this.state.locationName} type="text" placeholder="Name of Entity" name="locationName" onChange={this.handleInputChange} />
                                 </div>
-                                <div>
+                                <div style={{ padding: '15px' }} >
                                     <div>
                                         <label className="input-title" >Address of Farm / Work /Home /Other<span className="astrick">*</span></label>
                                     </div>
@@ -316,7 +316,7 @@ class WeatherLocationSetting extends React.Component {
                                     </div>
                                     <div className="clearfix"></div>
                                 </div>
-                                <div className="col-sm-6 code-city " >
+                                <div className="col-sm-6 code-city " style={{ padding: '15px' }} >
                                     <div className="col-sm-6 fl code-city">
                                         <label className="input-title" >Zip/Postal Code<span className="astrick">*</span></label>
                                         <input className="name-email-phone" value={this.state.zipcode} type="text" placeholder="Enter Zip/ Postal Code" name="zipcode" onChange={this.handleInputChange} />
@@ -589,7 +589,8 @@ class WeatherLocationSetting extends React.Component {
                                     <div className="clearfix"></div>
                                 </div>
                                 <div className="clearfix"></div>
-                                <div className=" child-form-weather" style={{ margin: 0, padding: '15px' }}>
+                                <div className=" child-form-weather" style={{  }}>
+                                  <div style={{marginLeft:'10px'}}>  
                                     <div className="fl">
                                         <p>
                                             Location Summary For Primary Location - PL
@@ -629,6 +630,7 @@ class WeatherLocationSetting extends React.Component {
                                             <div className="clearfix"></div>
                                         </div>
                                         <div className="clearfix"></div>
+                                    </div>
                                     </div>
                                 </div>
                                 <div>
