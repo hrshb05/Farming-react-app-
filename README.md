@@ -11,13 +11,13 @@ To run the app locally:
 
 ```bash
 for clone project run:
-git clone http://git.viithiisys.com/swarn/clafis.git
+git clone https://github.com/shukla038/Farming-react-app-.git
 
 Got to project directory:
 cd clafis
 
 Install dependencies:
-npm install 
+npm install
 
 Run project on your local system:
 npm run dev
