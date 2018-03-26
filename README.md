@@ -25,5 +25,5 @@ npm run dev
 Open project on your browser: 
 http://localhost:1234
 ```
- ![alt tag](https://ibb.co/dSwxs7)
+Designed UI in ReactJs(ES6) integrated APIs to all the pages of this app.Bakend was developed in Nodejs.
  
